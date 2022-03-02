@@ -1,0 +1,10 @@
+declare module "*.png";
+declare module "*.jpg";
+declare module "*.ico";
+declare module "*.jpeg";
+declare module "*.gif";
+declare module "*.svg";
+declare module "*.woff";
+declare module "*.tiff";
+declare module "*.wav";
+declare module "*.mp3";

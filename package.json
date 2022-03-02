@@ -1,0 +1,68 @@
+{
+  "name": "starter-kit-electron-react-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./build/main.js",
+  "homepage": "./",
+  "scripts": {
+    "dev": "concurrently \"npm run electron:renderer\" \"wait-on http://localhost:3000 && npm run electron:preload && npm run electron:main\"",
+    "electron:preload": "webpack --config webpack.preload.config.js --mode=production",
+    "electron:main": "set NODE_ENV=development && webpack --config webpack.electron.config.js --mode=development && electron .",
+    "electron:renderer": "set NODE_ENV=development && webpack serve --config webpack.react.config.js --mode=development",
+    "react:pack": "webpack --config webpack.react.config.js --mode=production",
+    "electron:pack": "webpack --config webpack.electron.config.js --mode=production",
+    "pack": "concurrently \"npm run react:pack\" \"npm run electron:pack\" && electron-builder --dir",
+    "dist": "concurrently \"npm run react:pack\" \"npm run electron:pack\" && electron-builder",
+    "postinstall": "electron-builder install-app-deps",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@babel/register": "^7.17.0",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.13.0",
+    "babel-loader": "^8.2.3",
+    "babel-register": "^6.26.0",
+    "concurrently": "^7.0.0",
+    "css-loader": "^6.6.0",
+    "electron": "^17.1.0",
+    "electron-builder": "^22.14.13",
+    "eslint": "^8.10.0",
+    "eslint-plugin-react": "^7.29.2",
+    "eslint-webpack-plugin": "^3.1.1",
+    "html-loader": "^3.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "typescript": "^4.1.6",
+    "wait-on": "^6.0.1",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "dependencies": {
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "build": {
+    "appId": "com.electron.notely",
+    "productName": "My Electron App",
+    "asarUnpack": "*",
+    "asar": true,
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "electron"
+    }
+  }
+}
